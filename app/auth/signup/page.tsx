@@ -17,8 +17,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from 'sonner';
 import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 function page() {
+  const router = useRouter();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -44,6 +46,7 @@ function page() {
       });
       console.log(res.data);
       toast("Account created successfully!");
+      router.push("/auth/login");
     } catch (err) {
       const error = err as AxiosError<{ error: string }>
       toast.error(error.response?.data.error || "Something went wrong.")

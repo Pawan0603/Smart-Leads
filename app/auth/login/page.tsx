@@ -18,8 +18,10 @@ import {
 import { Input } from "@/components/ui/input"
 import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 function page() {
+  const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -34,6 +36,7 @@ function page() {
         password,
       });
       toast.success(res.data.message);
+      router.push("/dashboard")
     } catch (err) {
       const error = err as AxiosError<{ error: string }>
       toast.error(error.response?.data.error || "Somethin went worng.")
