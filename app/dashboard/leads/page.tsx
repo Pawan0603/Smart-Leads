@@ -64,7 +64,7 @@ interface PaginationData {
 }
 
 export default function LeadsPage() {
-  const {user} = useAppContext();
+  const { user } = useAppContext();
   const [loading, setLoading] = useState(true);
 
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -140,10 +140,19 @@ export default function LeadsPage() {
     fetchLeads();
   }, [
     pagination.page,
-    search,
+    // search,
     status,
     source,
     sort,
+  ]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchLeads();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [
+    search,
   ]);
 
   const handleAddLead = () => {
