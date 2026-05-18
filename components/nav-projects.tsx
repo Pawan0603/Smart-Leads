@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/sidebar"
 import { LayoutDashboard, ShieldCheck, UsersRound } from "lucide-react"
 import { Separator } from "./ui/separator"
+import { useAppContext } from "@/context/AppContext"
 
 export function NavProjects() {
   const { isMobile } = useSidebar()
+  const {user} = useAppContext();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -32,14 +34,15 @@ export function NavProjects() {
             </a>
           </SidebarMenuButton>
         </SidebarMenuItem>
-        <SidebarMenuItem key={"Admin"}>
-          <SidebarMenuButton asChild>
-            <a href={"/dashboard/admin"}>
-              <ShieldCheck />
-              <span>{"Admin"}</span>
-            </a>
+        {user?.role === "Admin" && (
+          <SidebarMenuItem key={"Admin"}>
+            <SidebarMenuButton asChild>
+              <a href={"/dashboard/admin"}>
+                <ShieldCheck />
+                <span>{"Admin"}</span>
+              </a>
           </SidebarMenuButton>
-        </SidebarMenuItem>
+        </SidebarMenuItem>)}
       </SidebarMenu>
     </SidebarGroup>
   )

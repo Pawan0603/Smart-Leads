@@ -38,6 +38,7 @@ import {
   LeadSource,
   SortOrder,
 } from '@/lib/types';
+import { useAppContext } from '@/context/AppContext';
 
 export interface Lead {
   _id: string;
@@ -63,6 +64,7 @@ interface PaginationData {
 }
 
 export default function LeadsPage() {
+  const {user} = useAppContext();
   const [loading, setLoading] = useState(true);
 
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -299,8 +301,8 @@ export default function LeadsPage() {
             <>
               <LeadsTable
                 leads={leads}
-                currentUserId="user-1"
-                isAdmin={true}
+                currentUserId={user?._id!}
+                isAdmin={user?.role === 'Admin'}
                 onView={(lead) =>
                   setViewLead(lead)
                 }
