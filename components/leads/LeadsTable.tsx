@@ -51,10 +51,10 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
                     <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={() => onView(lead)}>
                       <Eye className="w-3.5 h-3.5" />
                     </Button>
-                    <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={() => onEdit(lead)}>
-                      <Pencil className="w-3.5 h-3.5" />
-                    </Button>
-                    {canDelete(lead) && (
+                    {canDelete(lead) && (<>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={() => onEdit(lead)}>
+                        <Pencil className="w-3.5 h-3.5" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -63,6 +63,7 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </Button>
+                    </>
                     )}
                   </div>
                 </TableCell>
@@ -98,10 +99,10 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
               <Button variant="ghost" size="sm" className="flex-1 h-8 text-xs" onClick={() => onView(lead)}>
                 <Eye className="w-3.5 h-3.5 mr-1" /> View
               </Button>
-              <Button variant="ghost" size="sm" className="flex-1 h-8 text-xs" onClick={() => onEdit(lead)}>
-                <Pencil className="w-3.5 h-3.5 mr-1" /> Edit
-              </Button>
-              {canDelete(lead) && (
+              {canDelete(lead) && (<>
+                <Button variant="ghost" size="sm" className="flex-1 h-8 text-xs" onClick={() => onEdit(lead)}>
+                  <Pencil className="w-3.5 h-3.5 mr-1" /> Edit
+                </Button>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -110,6 +111,7 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
                 >
                   <Trash2 className="w-3.5 h-3.5 mr-1" /> Delete
                 </Button>
+              </>
               )}
             </div>
           </div>
