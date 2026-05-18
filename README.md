@@ -1,36 +1,317 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Leads Dashboard
 
-## Getting Started
+A full-stack Lead Management Dashboard built using Next.js, TypeScript, MongoDB, and TailwindCSS.
 
-First, run the development server:
+This project was built as part of a Full Stack Internship Assignment and focuses on scalable architecture, secure authentication, clean API design, and modern frontend/backend best practices.
+
+---
+
+# Features
+
+## Authentication & Authorization
+
+- JWT Authentication
+- Secure HTTP-only Cookies
+- User Registration & Login
+- Password Hashing using bcryptjs
+- Protected Routes
+- Role-Based Access Control (RBAC)
+
+### Roles
+
+#### Admin
+- View all leads
+- Create leads
+- Update any lead
+- Delete any lead
+- Access admin dashboard
+- View all users
+
+#### Sales User
+- Create leads
+- Update own leads
+- Delete own leads only
+
+---
+
+# Leads Management
+
+- Create Lead
+- Update Lead
+- Delete Lead
+- View Single Lead
+- View Leads List
+
+---
+
+# Advanced Filtering
+
+- Search by Name or Email
+- Filter by Status
+- Filter by Source
+- Sort by Latest / Oldest
+- Backend Pagination
+- Debounced Search
+
+---
+
+# Dashboard
+
+## User Dashboard
+- Total Leads
+- Lead Status Analytics
+- Source Breakdown
+- Recent Leads
+
+## Admin Dashboard
+- System Overview
+- User Management
+- Leads Analytics
+- Source Analytics
+
+---
+
+# CSV Export
+
+- Export filtered leads into CSV format
+
+---
+
+# Tech Stack
+
+## Frontend
+- Next.js 15
+- TypeScript
+- TailwindCSS
+- shadcn/ui
+- Axios
+- Lucide Icons
+
+## Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+
+---
+
+# Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+src/
+│
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   ├── leads/
+│   │   ├── dashboard/
+│   │   └── admin/
+│   │
+│   ├── dashboard/
+│   ├── leads/
+│   └── admin/
+│
+├── components/
+│
+├── lib/
+│
+├── models/
+│
+├── utils/
+│
+├── context/
+│
+└── hooks/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root directory.
 
-## Learn More
+```env
+MONGODB_URI=your_mongodb_connection_string
 
-To learn more about Next.js, take a look at the following resources:
+JWT_SECRET=your_jwt_secret
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Installation
 
-## Deploy on Vercel
+## Clone Repository
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+git clone <your-repository-url>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Go to Project Folder
+
+```bash
+cd smart-leads-dashboard
+```
+
+## Install Dependencies
+
+Using pnpm:
+
+```bash
+pnpm install
+```
+
+---
+
+# Run Development Server
+
+```bash
+pnpm dev
+```
+
+Project runs on:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+# API Endpoints
+
+# Authentication
+
+## Register
+
+```http
+POST /api/auth/signup
+```
+
+## Login
+
+```http
+POST /api/auth/login
+```
+
+## Logout
+
+```http
+POST /api/auth/logout
+```
+
+## Current User
+
+```http
+GET /api/auth/me
+```
+
+---
+
+# Leads
+
+## Get All Leads
+
+```http
+GET /api/leads
+```
+
+### Query Params
+
+```http
+?page=1
+&search=rahul
+&status=Qualified
+&source=Instagram
+&sort=latest
+```
+
+## Create Lead
+
+```http
+POST /api/leads
+```
+
+## Update Lead
+
+```http
+PATCH /api/leads/:id
+```
+
+## Delete Lead
+
+```http
+DELETE /api/leads/:id
+```
+
+---
+
+# Dashboard
+
+## User Dashboard
+
+```http
+GET /api/dashboard
+```
+
+## Admin Dashboard
+
+```http
+GET /api/admin/dashboard
+```
+
+---
+
+# Security Features
+
+- JWT Authentication
+- HTTP-only Cookies
+- Protected APIs
+- Role-Based Authorization
+- Ownership-Based Authorization
+- Password Hashing
+- Environment Variables
+
+---
+
+# Performance Optimizations
+
+- Debounced Search
+- Backend Pagination
+- Optimized MongoDB Queries
+- Reusable Components
+- Memoization using useMemo
+
+---
+
+# UI Features
+
+- Responsive Design
+- Reusable Components
+- Loading States
+- Empty States
+- Error Handling
+- Toast Notifications
+
+---
+
+# Future Improvements
+
+- Docker Deployment
+- Refresh Tokens
+- Rate Limiting
+- Unit Testing
+- Email Notifications
+- Charts & Analytics
+- Dark Mode
+
+---
+
+# Author
+
+Pawan Thakre
+
+---
+
+# License
+
+This project is built for educational and internship assignment purposes.
