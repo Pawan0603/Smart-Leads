@@ -20,6 +20,7 @@ import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { GalleryVerticalEndIcon } from 'lucide-react';
+import { ModeToggle } from '@/components/ModeToggle';
 
 function page() {
   const router = useRouter();
