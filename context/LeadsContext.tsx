@@ -1,7 +1,10 @@
 'use client';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Lead, LeadStatus, LeadSource } from '@/lib/types';
 import { mockLeads } from '@/data/mockLeads';
+import axios, { AxiosError } from 'axios';
+import { toast } from 'sonner';
+import { get } from 'http';
 
 export interface CreateLeadInput {
   name: string;
@@ -21,6 +24,20 @@ const LeadsContext = createContext<LeadsContextType | null>(null);
 
 export function LeadsProvider({ children }: { children: ReactNode }) {
   const [leads, setLeads] = useState<Lead[]>(mockLeads);
+
+  const getLeads = async () => {
+    try {
+      const res = await axios.get('/api/leads');
+      setLeads(res.data.data);
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }>
+      toast.error(error.response?.data.error || "Something went wrong.")
+    }
+  }
+
+  useEffect(() => {
+    getLeads();
+  }, []);
 
   const addLead = (input: CreateLeadInput, createdBy: string): Lead => {
     const newLead: Lead = {
