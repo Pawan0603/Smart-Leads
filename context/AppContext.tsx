@@ -1,8 +1,10 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { UserRole } from '@/lib/types';
+import { User, UserRole } from '@/lib/types';
+import axios from 'axios';
 
 interface AppContextType {
+  user: User | null;
   role: UserRole;
   setRole: (role: UserRole) => void;
   isDark: boolean;
@@ -21,6 +23,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   });
 
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const getuser = async () => {
+      try {
+        const res = await axios.get('/api/auth/me');
+        if (res.data.success) {
+          setUser(res.data.data);
+        }
+      } catch (error) {
+        console.log('Error fetching user data:', error);
+      }
+    }
+
+    getuser();
+  }, []);
+
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
@@ -35,7 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const toggleDark = () => setIsDark((prev) => !prev);
 
   return (
-    <AppContext.Provider value={{ role, setRole, isDark, toggleDark }}>
+    <AppContext.Provider value={{ user, role, setRole, isDark, toggleDark }}>
       {children}
     </AppContext.Provider>
   );

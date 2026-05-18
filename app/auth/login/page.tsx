@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { GalleryVerticalEndIcon } from 'lucide-react';
 
 function page() {
   const router = useRouter();
@@ -47,6 +48,14 @@ function page() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
+        <div className='flex items-center justify-center mb-6 gap-4'>
+          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <GalleryVerticalEndIcon />
+          </div>
+          <div className="grid text-left text-sm leading-tight">
+            <span className="truncate font-medium text-xl">Smart Leads</span>
+          </div>
+        </div>
         <div className={cn("flex flex-col gap-6")}>
           <Card>
             <CardHeader>

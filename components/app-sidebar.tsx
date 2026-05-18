@@ -13,6 +13,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { GalleryVerticalEndIcon } from "lucide-react"
+import App from "next/app"
+import { useAppContext } from "@/context/AppContext"
 
 // This is sample data.
 const data = {
@@ -34,6 +36,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAppContext();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -43,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user!} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

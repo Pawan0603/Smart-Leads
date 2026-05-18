@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from 'sonner';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
+import { GalleryVerticalEndIcon } from 'lucide-react';
 
 function page() {
   const router = useRouter();
@@ -58,70 +59,78 @@ function page() {
 
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="flex flex-col min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <div className='flex items-center justify-center mb-6 gap-4'>
+          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <GalleryVerticalEndIcon />
+          </div>
+          <div className="grid text-left text-sm leading-tight">
+            <span className="truncate font-medium text-xl">Smart Leads</span>
+          </div>
+        </div>
       <div className="w-full max-w-sm">
-         <Card>
-      <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
-          Enter your information below to create your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit}>
-          <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">Full Name</FieldLabel>
-              <Input onChange={(e) => setName(e.target.value)} id="name" type="text" placeholder="John Doe" required />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                onChange={(e) => setEmail(e.target.value)}
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-                type="password"
-                required
-              />
-              <FieldDescription>
-                Must be at least 8 characters long.
-              </FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                Confirm Password
-              </FieldLabel>
-              <Input
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                id="confirm-password"
-                type="password"
-                required
-              />
-              <FieldDescription>Please confirm your password.</FieldDescription>
-            </Field>
-            <FieldGroup>
-              <Field>
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating Account..." : "Create Account"}
-                </Button>
-                <FieldDescription className="px-6 text-center">
-                  Already have an account? <a href="/auth/login">Sign in</a>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </FieldGroup>
-        </form>
-      </CardContent>
-    </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Create an account</CardTitle>
+            <CardDescription>
+              Enter your information below to create your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit}>
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="name">Full Name</FieldLabel>
+                  <Input onChange={(e) => setName(e.target.value)} id="name" type="text" placeholder="John Doe" required />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input
+                    onChange={(e) => setEmail(e.target.value)}
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <Input
+                    onChange={(e) => setPassword(e.target.value)}
+                    id="password"
+                    type="password"
+                    required
+                  />
+                  <FieldDescription>
+                    Must be at least 8 characters long.
+                  </FieldDescription>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="confirm-password">
+                    Confirm Password
+                  </FieldLabel>
+                  <Input
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    id="confirm-password"
+                    type="password"
+                    required
+                  />
+                  <FieldDescription>Please confirm your password.</FieldDescription>
+                </Field>
+                <FieldGroup>
+                  <Field>
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? "Creating Account..." : "Create Account"}
+                    </Button>
+                    <FieldDescription className="px-6 text-center">
+                      Already have an account? <a href="/auth/login">Sign in</a>
+                    </FieldDescription>
+                  </Field>
+                </FieldGroup>
+              </FieldGroup>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
