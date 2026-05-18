@@ -17,6 +17,7 @@ import { LeadFormModal } from '@/components/leads/LeadFormModal';
 import { LeadDetailModal } from '@/components/leads/LeadDetailModal';
 import { ConfirmDeleteDialog } from '@/components/leads/ConfirmDeleteDialog';
 import { exportLeadsToCSV } from '@/utils/csvExport';
+import axios, { AxiosError } from 'axios';
 
 export default function LeadsPage() {
   const { leads, addLead, updateLead, deleteLead } = useLeads();
@@ -66,13 +67,21 @@ export default function LeadsPage() {
     setFormOpen(true);
   };
 
-  const handleFormSubmit = (input: CreateLeadInput) => {
+  const handleFormSubmit = async (input: CreateLeadInput) => {
     if (editLead) {
       updateLead(editLead.id, input);
       toast("Lead updated", { description: `${input.name} has been updated successfully.` });
     } else {
-      addLead(input, 'user-1');
-      toast("Lead added", { description: `${input.name} has been added successfully.` });
+      
+      try {
+        const res = await axios.post('/api/leads', input);
+        console.log(res.data);
+        addLead(input, 'user-1');
+        toast("Lead added", { description: `${input.name} has been added successfully.` });
+      } catch (err) {
+        const error = err as AxiosError<{ error: string }>
+        toast.error(error.response?.data.error || "Something went wrong.")
+      }
     }
   };
 
