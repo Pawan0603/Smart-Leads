@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -20,10 +21,11 @@ import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { GalleryVerticalEndIcon } from 'lucide-react';
-import { ModeToggle } from '@/components/ModeToggle';
+import { useAppContext } from '@/context/AppContext';
 
 function page() {
   const router = useRouter();
+  const { getuser } = useAppContext();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -38,6 +40,7 @@ function page() {
         password,
       });
       toast.success(res.data.message);
+      await getuser();
       router.push("/dashboard")
     } catch (err) {
       const error = err as AxiosError<{ error: string }>
@@ -106,6 +109,13 @@ function page() {
                 </FieldGroup>
               </form>
             </CardContent>
+            <CardFooter className="flex flex-col items-center justify-center">
+              <p className='text-neutral-400'>Demo credential for testing purposes only</p>
+              <hr className="my-2 w-full" />
+              <p className='text-neutral-500'>Admin</p>
+              <p className='text-neutral-400'>Email: admin@email.com</p>
+              <p className='text-neutral-400'>Password: 123456</p>
+            </CardFooter>
           </Card>
         </div>
       </div>

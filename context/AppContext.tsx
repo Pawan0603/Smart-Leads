@@ -4,6 +4,7 @@ import { User, UserRole } from '@/lib/types';
 import axios from 'axios';
 
 interface AppContextType {
+  getuser: () => Promise<void>;
   user: User | null;
   role: UserRole;
   setRole: (role: UserRole) => void;
@@ -25,20 +26,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const [user, setUser] = useState<User | null>(null);
 
+  const getuser = async () => {
+    try {
+      const res = await axios.get('/api/auth/me');
+      if (res.data.success) {
+        setUser(res.data.data);
+      }
+    } catch (error) {
+      console.log('Error fetching user data:', error);
+    }
+  }
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    const getuser = async () => {
-      try {
-        const res = await axios.get('/api/auth/me');
-        if (res.data.success) {
-          setUser(res.data.data);
-        }
-      } catch (error) {
-        console.log('Error fetching user data:', error);
-      }
-    }
-
     getuser();
   }, []);
 
@@ -56,7 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const toggleDark = () => setIsDark((prev) => !prev);
 
   return (
-    <AppContext.Provider value={{ user, role, setRole, isDark, toggleDark }}>
+    <AppContext.Provider value={{ getuser, user, role, setRole, isDark, toggleDark }}>
       {children}
     </AppContext.Provider>
   );
