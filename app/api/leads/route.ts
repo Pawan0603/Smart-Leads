@@ -4,6 +4,7 @@ import { connectDB } from "@/lib/db";
 import { getAuthUser } from "@/lib/auth";
 import { Lead } from "@/models/Lead";
 import { SortOrder } from "mongoose";
+import "@/models/User";
 
 export async function POST(req: NextRequest) {
   try {

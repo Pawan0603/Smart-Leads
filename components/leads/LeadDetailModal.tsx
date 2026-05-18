@@ -59,7 +59,7 @@ export function LeadDetailModal({ open, onClose, lead }: LeadDetailModalProps) {
               })}
             </Field>
             <Field label="Lead ID">
-              <span className="font-mono text-xs text-muted-foreground">#{lead.id}</span>
+              <span className="font-mono text-xs text-muted-foreground">#{lead._id}</span>
             </Field>
           </div>
         </div>

@@ -17,7 +17,7 @@ interface LeadsTableProps {
 }
 
 export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDelete }: LeadsTableProps) {
-  const canDelete = (lead: Lead) => isAdmin || lead.createdBy === currentUserId;
+  const canDelete = (lead: Lead) => isAdmin || lead.createdBy._id === currentUserId;
 
   return (
     <>
@@ -36,7 +36,7 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
           </TableHeader>
           <TableBody>
             {leads.map((lead) => (
-              <TableRow key={lead.id} className="hover:bg-muted/30 transition-colors">
+              <TableRow key={lead._id} className="hover:bg-muted/30 transition-colors">
                 <TableCell className="font-medium text-foreground">{lead.name}</TableCell>
                 <TableCell className="text-muted-foreground text-sm">{lead.email}</TableCell>
                 <TableCell><StatusBadge status={lead.status} /></TableCell>
@@ -76,7 +76,7 @@ export function LeadsTable({ leads, currentUserId, isAdmin, onView, onEdit, onDe
       <div className="md:hidden space-y-3">
         {leads.map((lead) => (
           <div
-            key={lead.id}
+            key={lead._id}
             className="rounded-lg border border-border bg-card p-4 space-y-3"
           >
             <div className="flex items-start justify-between gap-2">
