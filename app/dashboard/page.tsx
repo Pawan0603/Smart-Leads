@@ -23,6 +23,7 @@ import {
 } from '@/utils/statusHelpers';
 
 import { cn } from '@/lib/utils';
+import Skeleton from './Skeleton';
 
 interface RecentLead {
   _id: string;
@@ -162,11 +163,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-[60vh]">
-        <p className="text-lg font-medium">
-          Loading dashboard...
-        </p>
-      </div>
+      <Skeleton />
     );
   }
 
