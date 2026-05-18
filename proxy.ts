@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
 
   if (!cookies && (request.nextUrl.pathname.startsWith('/dashboard'))){
     return NextResponse.redirect(new URL('/auth/login', request.url));
-  }  
+  } 
 }
 
 export const config = {

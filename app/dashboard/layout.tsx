@@ -13,7 +13,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { LeadsProvider } from "@/context/LeadsContext"
 
 export default function Page({
   children,
@@ -47,7 +46,7 @@ export default function Page({
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <LeadsProvider>{children}</LeadsProvider>
+          {children}
         </div>
       </SidebarInset>
     </SidebarProvider>

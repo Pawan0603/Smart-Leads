@@ -1,10 +1,5 @@
 'use client';
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Lead, LeadStatus, LeadSource } from '@/lib/types';
-import { mockLeads } from '@/data/mockLeads';
-import axios, { AxiosError } from 'axios';
-import { toast } from 'sonner';
-import { get } from 'http';
 
 export interface CreateLeadInput {
   name: string;
@@ -18,57 +13,4 @@ interface LeadsContextType {
   addLead: (input: CreateLeadInput, createdBy: string) => Lead;
   updateLead: (id: string, input: CreateLeadInput) => void;
   deleteLead: (id: string) => void;
-}
-
-const LeadsContext = createContext<LeadsContextType | null>(null);
-
-export function LeadsProvider({ children }: { children: ReactNode }) {
-  const [leads, setLeads] = useState<Lead[]>(mockLeads);
-
-  const getLeads = async () => {
-    try {
-      const res = await axios.get('/api/leads');
-      setLeads(res.data.data);
-    } catch (err) {
-      const error = err as AxiosError<{ error: string }>
-      toast.error(error.response?.data.error || "Something went wrong.")
-    }
-  }
-
-  useEffect(() => {
-    getLeads();
-  }, []);
-
-  const addLead = (input: CreateLeadInput, createdBy: string): Lead => {
-    const newLead: Lead = {
-      id: Date.now().toString(),
-      ...input,
-      createdAt: new Date().toISOString(),
-      createdBy,
-    };
-    setLeads((prev) => [newLead, ...prev]);
-    return newLead;
-  };
-
-  const updateLead = (id: string, input: CreateLeadInput) => {
-    setLeads((prev) =>
-      prev.map((l) => (l.id === id ? { ...l, ...input } : l))
-    );
-  };
-
-  const deleteLead = (id: string) => {
-    setLeads((prev) => prev.filter((l) => l.id !== id));
-  };
-
-  return (
-    <LeadsContext.Provider value={{ leads, addLead, updateLead, deleteLead }}>
-      {children}
-    </LeadsContext.Provider>
-  );
-}
-
-export function useLeads() {
-  const ctx = useContext(LeadsContext);
-  if (!ctx) throw new Error('useLeads must be used within LeadsProvider');
-  return ctx;
 }
